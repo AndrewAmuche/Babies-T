@@ -1,0 +1,6 @@
+{
+  "name": "Babies Touch — Simply Magical Kids Fashion",
+  "description": "Kids fashion store in Main Market, Onitsha Nigeria, specializing in kids gowns, boys wears, and kids shoes with nationwide waybill delivery.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

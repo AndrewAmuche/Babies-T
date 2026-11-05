@@ -1,0 +1,794 @@
+# MASTER PROMPT: UPGRADE THE EXISTING BABIES TOUCH ADMIN DASHBOARD
+
+## Project Overview
+
+Upgrade the existing admin dashboard for **Babies Touch**, an online baby and children's clothing store, into a professional, fully functional, easy-to-use e-commerce management system.
+
+The website sells baby clothing, dresses, boys' outfits, newborn essentials, occasion wear, shoes, accessories, matching sets, and other children's fashion products.
+
+The brand's visual identity uses pink, dark pink, light purple/lilac, and white. Maintain the existing website's design system and apply these colours consistently throughout the admin interface.
+
+### CRITICAL INSTRUCTION
+
+**Update the existing admin dashboard. Do not rebuild the entire application from scratch.**
+
+Before making changes, inspect the existing project structure, framework, database, authentication, API routes, components, and current admin features.
+
+- Preserve all existing working features and customer-facing pages.
+- Reuse the existing database, authentication system, APIs, payment integrations, and storage services.
+- Do not delete, reset, or replace existing data.
+- Do not create duplicate tables, collections, pages, or services where existing ones can be extended.
+- Make changes compatible with the existing architecture.
+- Every new button, form, filter, and management feature must work, not merely look functional.
+- Persist all changes to the actual database.
+- Use proper loading states, success messages, error handling, validation, and confirmation dialogs.
+- Ensure the dashboard works on desktop, tablet, and mobile devices.
+
+The goal is to give the store owner complete control over the website without requiring a developer for routine product and store management.
+
+---
+
+# 1. ADMIN DASHBOARD OVERVIEW
+
+Create a clear dashboard overview showing:
+
+- Total products.
+- Published products.
+- Draft products.
+- Products low in stock.
+- Out-of-stock products.
+- Total product variations.
+- Pending orders.
+- Processing orders.
+- Completed orders.
+- Cancelled and refunded orders.
+- Total sales.
+- Sales for today, this week, this month, and a selected date range.
+- Total registered customers.
+- Recent orders.
+- Best-selling products.
+- Low-stock product alerts.
+- Recent administrative activity.
+
+Add date filters to sales reports and ensure all displayed figures come from real database records.
+
+Use clickable summary cards that take the administrator to the relevant filtered management page.
+
+# 2. COMPLETE PRODUCT MANAGEMENT
+
+Create a comprehensive product creation and editing interface.
+
+The administrator must be able to:
+
+- Add a new product.
+- Edit an existing product.
+- View product details.
+- Duplicate a product.
+- Save a product as a draft.
+- Publish or unpublish a product.
+- Schedule publication if supported by the existing architecture.
+- Archive a product.
+- Delete a product with confirmation.
+- Restore archived or soft-deleted products where applicable.
+- Preview a product before publishing.
+- Select multiple products for bulk actions.
+- Search, filter, sort, and paginate products.
+
+## Product information fields
+
+Each product should support:
+
+- Product name.
+- Slug and product URL.
+- Short description.
+- Full product description.
+- Product type: Simple or Variable.
+- Regular price.
+- Sale price.
+- Sale start and end dates, if applicable.
+- Product SKU.
+- Barcode, if supported.
+- Main product image.
+- Product image gallery.
+- Product category and subcategory.
+- Product tags.
+- Product attributes.
+- Product variations.
+- Stock quantity and stock status.
+- Weight and dimensions, if relevant.
+- Product brand or collection, if used.
+- Featured product status.
+- New arrival status.
+- Best-seller designation, where managed manually.
+- Pre-order status and availability date.
+- SEO title.
+- SEO meta description.
+- Image alt text.
+- Related products.
+- Cross-sell and upsell products.
+- Publication status.
+- Creation and last-updated timestamps.
+
+Make the form logically organised into sections or tabs, such as General, Images, Categories, Attributes, Variations, Inventory, Shipping, SEO, and Advanced Settings.
+
+Avoid placing every field in one excessively long, cluttered form.
+
+# 3. PRODUCT IMAGE MANAGEMENT
+
+Build a reliable image management system for product images.
+
+## Main product image
+
+Allow the administrator to:
+
+- Upload an image from their device.
+- Select an existing image from the media library.
+- Replace the main image.
+- Remove the main image.
+- Preview the image before saving.
+- Crop or adjust the image where supported.
+- Add descriptive alt text.
+- Reorder gallery images using drag and drop.
+
+## Product image gallery
+
+Allow multiple additional images per product.
+
+The administrator should be able to:
+
+- Upload multiple images at once.
+- Select multiple existing media files.
+- Remove individual images.
+- Reorder images.
+- Set or change the primary image.
+- Preview images at a useful size.
+- See upload progress and upload errors.
+- Prevent duplicate uploads where practical.
+- Reuse previously uploaded images instead of uploading the same file repeatedly.
+
+Optimise images for performance without unnecessarily reducing product image quality. Use responsive image sizes, appropriate formats, lazy loading, and the project's existing image storage or CDN service.
+
+## Important storefront image behaviour
+
+- Display the main product image by default.
+- For products with variations, allow a second-image hover effect when an appropriate alternate image exists.
+- Products without variations must not automatically switch to another gallery image on hover, even if they have several gallery images.
+- When a shopper selects a variation with its own assigned image, display that variation's image.
+- If a variation has no specific image, use the product's main image as the fallback.
+- When the shopper changes variation options, update the displayed image to match the selected variation.
+- When the shopper clears the selection, return to the default product image.
+- Ensure mobile users can access all images without relying on hover interactions.
+
+# 4. PRODUCT VARIATIONS — ESSENTIAL FEATURE
+
+Implement a complete variable-product management system.
+
+Examples include a children's dress available in different sizes and colours, where each size-colour combination can have a different image, SKU, price, and stock quantity.
+
+The administrator must be able to choose between:
+
+**Simple product:** A product sold without selectable variations.
+
+**Variable product:** A product with selectable options such as size, colour, age group, or other attributes.
+
+Changing a product from simple to variable, or the reverse, must preserve existing product information wherever possible and clearly warn the administrator before any potentially destructive change.
+
+## Variation creation workflow
+
+Allow the administrator to:
+
+1. Select Variable Product as the product type.
+2. Choose existing attributes or create new attributes.
+3. Select which attributes are used for variations.
+4. Select the available terms for each attribute.
+5. Generate all valid combinations automatically.
+6. Add variations individually when only certain combinations are available.
+7. Edit each variation independently.
+8. Enable or disable individual variations.
+9. Delete selected variations with confirmation.
+10. Bulk-edit variation prices, stock settings, and other supported fields.
+
+For example, a dress may have:
+
+- Size: 6–12 months, 1–2 years, 3–4 years.
+- Colour: Pink, Purple, White.
+
+The system may generate nine combinations, but the administrator must be able to disable or remove combinations that are not sold.
+
+Avoid generating duplicate variations. Warn the administrator if the number of combinations becomes excessive.
+
+## 4.1 Assigning a separate image to every variation
+
+**This is a mandatory requirement. The administrator must be able to select the product image for each individual variation.**
+
+Every variation must have its own image assignment field in the variation editor.
+
+For each variation, display:
+
+- Variation name, such as Pink / 1–2 Years.
+- A visible image thumbnail.
+- A button labelled "Select Variation Image".
+- An option to upload a new image.
+- An option to select an existing image from the media library.
+- An option to remove or replace the assigned image.
+- A preview of the selected image.
+- The variation's price, SKU, and stock information nearby.
+
+### Variation image selection workflow
+
+When the administrator clicks "Select Variation Image":
+
+1. Open a media-library modal or image-selection panel.
+2. Allow the administrator to upload a new image or choose an existing product image.
+3. Display image thumbnails to make selection easy.
+4. Allow the administrator to select exactly one primary image for that variation.
+5. Save the image's persistent media ID or storage reference against that specific variation.
+6. Update the thumbnail immediately after selection.
+7. Save the assignment to the database when the product or variation is saved.
+8. Restore the correct image when the administrator reopens the product editor.
+
+Do not save only a temporary browser preview or an image URL that disappears when the session ends. Store a durable reference to the image in the existing media storage system.
+
+### Example
+
+A children's dress has these variations:
+
+| Variation | Assigned image | SKU |
+|---|---|---|
+| Pink / 6–12 months | Pink dress image | DRESS-PNK-612 |
+| Pink / 1–2 years | Pink dress image or size-specific photo | DRESS-PNK-12 |
+| Purple / 6–12 months | Purple dress image | DRESS-PUR-612 |
+| Purple / 1–2 years | Purple dress image or size-specific photo | DRESS-PUR-12 |
+
+The administrator must be able to assign the correct image to each row independently. Multiple variations may share an image, but selecting an image for one variation must never accidentally overwrite the image assigned to another variation.
+
+### Storefront variation image behaviour
+
+When a customer visits a variable product:
+
+- Display the main product image before a variation is selected.
+- Allow customers to select options using suitable controls, such as colour swatches, size buttons, or dropdowns.
+- Once a valid variation is identified, display its assigned image.
+- Update the image immediately when the selected variation changes.
+- If a variation has no assigned image, fall back to the main product image.
+- Never display the image of a different variation by mistake.
+- If a selected variation is unavailable, clearly show its unavailable status and prevent adding it to the cart.
+- Ensure the variation image, selected options, price, SKU, and stock information stay synchronised.
+- Return to the default product image when the selection is cleared.
+- Keep the selected variation and its correct image consistent when adding the item to the cart.
+
+Do not confuse the variation image with the product's general gallery images. They are related but must be managed independently.
+
+# 5. GLOBAL PRODUCT ATTRIBUTES AND TERMS
+
+Create a centralised attribute manager accessible from the admin dashboard.
+
+Administrators must be able to create, edit, reorder, and manage attributes without opening an individual product.
+
+Examples of attributes include:
+
+- Size.
+- Colour.
+- Age Group.
+- Material.
+- Sleeve Length.
+- Clothing Style.
+- Shoe Size.
+- Occasion.
+- Pattern.
+- Gender or collection, where appropriate.
+
+## Attribute management features
+
+For each attribute, support:
+
+- Attribute name.
+- Attribute slug.
+- Description, where relevant.
+- Display type, such as dropdown, button, or colour swatch.
+- Sort order.
+- Whether the attribute can be used for variations.
+- Whether the attribute is visible on product pages.
+
+## Attribute terms
+
+Allow the administrator to create and manage the values belonging to an attribute.
+
+Examples:
+
+**Size**
+- Newborn.
+- 0–3 months.
+- 3–6 months.
+- 6–12 months.
+- 1–2 years.
+- 3–4 years.
+- 5–6 years.
+
+**Colour**
+- Pink.
+- Purple.
+- White.
+- Blue.
+- Red.
+- Black.
+
+**Age Group**
+- Newborn.
+- Baby.
+- Toddler.
+- Kids.
+
+For colour attributes, allow the administrator to assign a colour swatch value or hex code where the storefront supports colour swatches.
+
+For size and age attributes, allow text-based options.
+
+Support adding, renaming, reordering, and deleting terms, with warnings if a term is already used by existing products or variations.
+
+Do not silently delete or invalidate existing variation data when an attribute or term is edited.
+
+## Global versus product-specific attributes
+
+Support both:
+
+- **Global attributes:** Reusable across multiple products and centrally managed.
+- **Custom product attributes:** Created for a specific product when they do not need to be reused globally.
+
+Clearly distinguish these two types in the product editor.
+
+# 6. PRODUCT CATEGORIES AND SUBCATEGORIES
+
+Create a category manager with full CRUD functionality: create, view, edit, and delete.
+
+For each category, support:
+
+- Category name.
+- Slug.
+- Description.
+- Parent category.
+- Category image or thumbnail.
+- Display order.
+- SEO title and description, where supported.
+- Active or inactive status.
+- Product count.
+
+Allow unlimited practical parent-child category levels, while keeping the interface easy to navigate.
+
+The administrator must be able to:
+
+- Create new categories and subcategories.
+- Edit category details.
+- Move a subcategory to another parent category.
+- Reorder categories.
+- Assign multiple categories to a product if the data model supports it.
+- View products within a category.
+- Search and filter categories.
+- Delete a category after confirmation.
+- Reassign products before deleting a category.
+- Prevent broken category URLs and invalid parent-child relationships.
+
+Example category structure:
+
+- Baby Girls' Clothing
+  - Baby Gowns & Dresses
+  - Party & Birthday Dresses
+  - Rompers & Jumpsuits
+  - Tops & Shirts
+  - Skirts & Shorts
+  - Two-Piece Sets
+- Baby Boys' Clothing
+  - Shirts & Trousers
+  - Rompers & Bodysuits
+  - Party Wear
+  - Traditional Outfits
+  - Jackets & Cardigans
+- Newborn Essentials
+  - Bodysuits & Sleepsuits
+  - Newborn Clothing Sets
+  - Socks & Mittens
+  - Hats & Bonnets
+  - Gift Sets
+- Occasion Wear
+  - Birthday Outfits
+  - Wedding & Flower Girl Dresses
+  - Naming Ceremony Outfits
+  - Christmas & Festive Wear
+- Shoes & Accessories
+  - Baby Shoes
+  - Sandals & Flats
+  - Hair Bows & Clips
+  - Socks & Tights
+  - Baby Bags & Handbags
+- Matching Sets & Collections
+- Sale & Special Offers
+- New Arrivals
+
+Treat these as example categories only. Preserve existing categories and allow the store owner to customise the structure based on the products actually stocked.
+
+# 7. PRODUCT TAGS
+
+Implement a dedicated product tag manager.
+
+Administrators should be able to:
+
+- Create, edit, and delete tags.
+- Assign multiple tags to products.
+- Remove tags from products.
+- Search and filter tags.
+- View how many products use each tag.
+- Reuse existing tags when creating or editing a product.
+- Create a new tag directly from the product editor where permitted.
+
+Examples include:
+
+- Birthday Outfit.
+- Party Wear.
+- Summer Collection.
+- New Arrival.
+- Best Seller.
+- Gift Idea.
+- Limited Stock.
+- Pre-Order.
+- Sale.
+
+Tags must be separate from categories and attributes. Do not treat tags, category terms, and variation attributes as interchangeable data.
+
+# 8. INVENTORY AND STOCK MANAGEMENT
+
+Build a reliable inventory management system at both product and variation level.
+
+For simple products, manage the product's stock.
+
+For variable products, manage stock separately for each variation where stock management is enabled.
+
+Support:
+
+- SKU management.
+- Stock quantity.
+- In-stock status.
+- Out-of-stock status.
+- Low-stock thresholds.
+- Stock management enable/disable settings.
+- Backorders, if supported and intentionally enabled.
+- Pre-order inventory and availability dates.
+- Stock adjustment history.
+- Bulk stock updates.
+- Low-stock notifications.
+- Out-of-stock product reports.
+- Optional inventory notes.
+
+For variable products, show a clear stock table with the individual variation's SKU, assigned image, price, quantity, and stock status.
+
+Prevent accidental overselling by validating stock on the server during checkout, not only in the interface.
+
+Reduce stock and restore stock correctly according to the existing order and cancellation workflows.
+
+Keep sold-out products visible on the storefront when configured to do so, with a clear Sold Out or Out of Stock label. Allow the administrator to choose whether individual out-of-stock products remain visible.
+
+# 9. PRICING, DISCOUNTS, AND PRE-ORDERS
+
+Support:
+
+- Regular and sale prices.
+- Scheduled discounts.
+- Bulk price changes.
+- Variation-specific pricing.
+- Sale price validation.
+- Product-level promotional badges.
+- Coupon creation and management if the current system supports coupons.
+- Pre-order enable/disable settings.
+- Expected availability date.
+- Pre-order terms or notices.
+- Separate stock and availability handling for pre-order items.
+
+A variation must be able to have a different price from other variations when required.
+
+Do not allow a sale price to exceed the regular price without an intentional, clearly validated exception.
+
+Do not advertise products as available for immediate delivery if they are only available for pre-order.
+
+# 10. ORDERS MANAGEMENT
+
+Upgrade or extend the order management area.
+
+Administrators should be able to:
+
+- View all orders.
+- Search by order number, customer name, email, or phone.
+- Filter by order status and date.
+- View full order details.
+- View the exact variation purchased, including its size, colour, SKU, and product image.
+- View quantities, item prices, discounts, shipping, and total.
+- View customer delivery details.
+- Update order status.
+- Add internal order notes.
+- Add customer-visible notes where supported.
+- View payment status and transaction references.
+- Process cancellations and refunds according to the payment provider's supported workflow.
+- Print order summaries or packing slips.
+- Export orders where supported.
+
+Maintain a clear order status lifecycle, such as Pending Payment, Processing, Shipped, Completed, Cancelled, and Refunded, adapted to the existing implementation.
+
+Do not mark a payment as successful merely because the customer returns to a success page. Verify payment using the existing trusted payment verification mechanism.
+
+# 11. CUSTOMER MANAGEMENT
+
+Provide an admin customer directory with:
+
+- Customer name.
+- Email and phone.
+- Registration date.
+- Order history.
+- Total number of orders.
+- Total spending.
+- Saved addresses where permitted.
+- Account status.
+- Search and filtering.
+
+Allow administrators to view customer records and relevant order history.
+
+Protect customer information. Restrict access to authorised administrators and avoid exposing sensitive information unnecessarily.
+
+Do not allow administrators to view passwords or other authentication secrets.
+
+# 12. MEDIA LIBRARY
+
+Create a central media library that supports:
+
+- Image upload.
+- Thumbnail previews.
+- Search by filename.
+- Filtering by file type.
+- Image alt text.
+- Image metadata.
+- Product image reuse.
+- Selecting images for products, categories, and individual variations.
+- Deleting unused media after checking whether it is referenced elsewhere.
+- Upload error handling.
+- File type and size validation.
+
+When an image is deleted, warn the administrator if it is being used by any product, variation, category, or other important record. Prevent broken product images by requiring reassignment or a clear confirmation before proceeding.
+
+# 13. HOMEPAGE AND STORE CONTENT MANAGEMENT
+
+Where compatible with the existing website, add an admin area for managing:
+
+- Homepage hero banners.
+- Promotional banners.
+- Featured product selections.
+- New-arrival sections.
+- Best-seller sections.
+- Promotional messages.
+- Homepage category sections.
+- Newsletter content.
+- Store contact information.
+- Social media links.
+- Footer content.
+- Store policy pages.
+- Frequently asked questions.
+- Delivery and returns information.
+
+Allow administrators to preview content before publishing.
+
+Preserve the existing website's layout and avoid adding duplicate content-management features if they already exist.
+
+# 14. SHIPPING AND DELIVERY SETTINGS
+
+Where supported by the existing architecture, provide configurable settings for:
+
+- Delivery zones.
+- Delivery fees.
+- Free-delivery thresholds.
+- Local pickup.
+- Delivery methods.
+- Estimated delivery times.
+- Shipping rules based on order value or location.
+- Order fulfilment status.
+
+Ensure that delivery fees are calculated consistently in the cart, checkout, order record, and admin order details.
+
+# 15. COUPONS AND PROMOTIONS
+
+If the current application supports or can safely accommodate promotions, allow administrators to:
+
+- Create coupon codes.
+- Set fixed-amount or percentage discounts.
+- Set start and expiry dates.
+- Set minimum order values.
+- Limit total uses.
+- Limit uses per customer.
+- Restrict coupons to selected products or categories.
+- Exclude sale items where required.
+- Activate or deactivate a promotion.
+- View coupon usage.
+
+Validate coupon rules on the server and prevent invalid or repeated discounts.
+
+# 16. REPORTS AND ANALYTICS
+
+Provide useful reports for:
+
+- Sales over time.
+- Orders by status.
+- Best-selling products.
+- Best-selling variations.
+- Low-stock items.
+- Out-of-stock products.
+- Revenue by product or category.
+- Discount usage.
+- Customer purchase history.
+- Pre-order performance, if applicable.
+
+Allow date-range filtering and CSV export where appropriate.
+
+Distinguish gross sales, discounts, refunds, shipping charges, and net revenue. Do not present estimates as actual revenue.
+
+# 17. ADMINISTRATOR ACCOUNTS AND PERMISSIONS
+
+Implement role-based access control if the project does not already have it.
+
+Suggested roles:
+
+- **Super Admin:** Full system access, settings, users, and permissions.
+- **Store Manager:** Products, categories, attributes, tags, inventory, orders, customers, and reports.
+- **Product Manager:** Product creation, images, variations, categories, attributes, and tags.
+- **Order Manager:** Order processing, fulfilment, and permitted customer/order details.
+- **Content Manager:** Banners, homepage content, and editable website pages.
+
+Allow the Super Admin to manage roles and permissions.
+
+Enforce permissions on the backend/API as well as hiding or disabling unavailable dashboard actions. Do not rely on frontend visibility alone to protect sensitive operations.
+
+Record important administrative actions in an activity log, including product edits, price changes, stock adjustments, order status changes, and user permission changes.
+
+# 18. SEARCH, FILTERS, BULK ACTIONS, AND USABILITY
+
+Make the dashboard efficient for managing a large catalogue.
+
+Provide:
+
+- Search by product name, SKU, or variation SKU.
+- Filters for product type, category, tag, stock status, publication status, and price range.
+- Sorting by name, date, price, stock, and sales where supported.
+- Pagination.
+- Select-all and multi-select.
+- Bulk publish/unpublish.
+- Bulk category and tag assignment.
+- Bulk stock and price updates.
+- Bulk archive or delete with confirmation.
+- Clear filter and reset controls.
+- Empty states with helpful actions.
+- Unsaved-change warnings.
+- Form validation with clear error messages.
+- Confirmation dialogs for destructive operations.
+
+Use searchable dropdowns for long category, tag, and attribute lists.
+
+# 19. DATABASE AND BACKEND REQUIREMENTS
+
+Inspect and extend the existing data model rather than creating a separate, disconnected product-management system.
+
+Ensure the data model can correctly represent:
+
+- Products.
+- Product images and galleries.
+- Global attributes.
+- Attribute terms.
+- Product-specific attributes.
+- Categories and parent-child relationships.
+- Tags.
+- Product-to-category relationships.
+- Product-to-tag relationships.
+- Product variations.
+- Variation attribute combinations.
+- Variation-specific images.
+- Variation-specific SKUs.
+- Variation prices.
+- Variation stock.
+- Orders and order items.
+- Customers.
+- Media references.
+- Admin roles and permissions.
+- Administrative activity logs.
+
+Use the existing database's appropriate relationships and constraints.
+
+For variable products, store each variation's attribute combination and image reference persistently. Enforce uniqueness where necessary so duplicate combinations cannot accidentally be created.
+
+Use safe database migrations when changes are needed. Preserve existing records and provide appropriate defaults for newly added fields.
+
+Ensure create, read, update, and delete operations use the correct backend services and APIs. Validate data on the server and handle database errors without losing the administrator's work.
+
+# 20. SECURITY AND RELIABILITY
+
+- Protect every admin route.
+- Require authentication for administrative operations.
+- Enforce role permissions on the backend.
+- Validate and sanitise user input.
+- Validate image file types and sizes.
+- Use secure image-storage permissions.
+- Never expose API keys, payment secrets, or privileged database credentials in frontend code.
+- Prevent unauthorised product price and stock changes.
+- Protect payment and order data.
+- Use transactions or equivalent safeguards for operations that update related records.
+- Avoid deleting products or media referenced by existing orders without a deliberate retention policy.
+- Keep useful error logs without exposing sensitive information to customers.
+
+# 21. DESIGN AND USER EXPERIENCE
+
+Create a clean, professional admin interface that feels consistent with Babies Touch.
+
+Use:
+
+- White or light neutral backgrounds.
+- Dark pink and pink for important brand accents.
+- Light purple/lilac for secondary accents.
+- Clear typography.
+- Consistent spacing.
+- Readable tables.
+- Practical forms and side panels.
+- Product image thumbnails.
+- Status labels.
+- Responsive navigation.
+- Accessible buttons and form labels.
+- Useful empty, loading, success, and error states.
+
+Do not overuse decorative elements, gradients, animations, or oversized cards. Prioritise speed, clarity, and ease of use.
+
+The product editor must remain manageable even when a product has many attributes and dozens of variations.
+
+For variations, prefer a compact table or expandable variation cards. Show each variation's assigned image thumbnail prominently enough that the administrator can easily verify it.
+
+# 22. ACCEPTANCE TESTS — MUST PASS BEFORE COMPLETION
+
+Test the completed implementation against the following scenarios.
+
+1. An administrator can create and publish a simple product.
+2. An administrator can upload a main product image and several gallery images.
+3. An administrator can create a global attribute and add reusable terms.
+4. An administrator can create a category and nested subcategory.
+5. An administrator can create and assign product tags.
+6. An administrator can create a variable product using size and colour attributes.
+7. The system generates valid variation combinations without duplicates.
+8. The administrator can disable or remove combinations that are not sold.
+9. **The administrator can select a different image for every individual variation.**
+10. The selected variation image remains correctly assigned after saving, refreshing, and reopening the product.
+11. Assigning an image to one variation does not change the image assigned to another variation.
+12. A customer selecting a variation sees the correct variation image on the storefront.
+13. Selecting a different variation updates the displayed image correctly.
+14. A variation without its own image falls back to the main product image.
+15. The product's price, SKU, and stock reflect the selected variation.
+16. Unavailable variations cannot be purchased.
+17. Stock changes persist in the database and appear correctly in the admin dashboard.
+18. Product filters, search, sorting, and bulk actions work correctly.
+19. Product edits do not break existing product URLs, orders, or payment integrations.
+20. Admin permissions prevent unauthorised users from accessing restricted operations.
+21. All existing working website functionality remains intact.
+22. The admin dashboard works on desktop and mobile.
+23. Errors are reported clearly, and successful changes persist after a page refresh.
+
+Do not mark any feature as complete simply because its UI has been created. Verify the actual database operations, backend validation, and customer-facing behaviour.
+
+# FINAL IMPLEMENTATION INSTRUCTION
+
+First inspect the existing project and identify the components, tables, collections, APIs, and pages that need modification.
+
+Then implement the upgrade incrementally, reusing existing code and services wherever possible.
+
+Prioritise the following in implementation order:
+
+1. Product creation and editing.
+2. Product image uploads and media library.
+3. Global attributes and terms.
+4. Categories and tags.
+5. Variable products and variation generation.
+6. **Individual image selection and persistent image assignment for each variation.**
+7. Variation-specific prices, SKUs, and inventory.
+8. Storefront variation selection and image updates.
+9. Orders, customers, and stock management.
+10. Remaining dashboard features, permissions, reports, and settings.
+
+After implementation, provide a concise report of the features completed, database changes made, existing integrations preserved, tests performed, and any items that remain incomplete.
+
+Do not leave core functionality as mock data, static examples, placeholder buttons, or frontend-only state. Implement and verify the real functionality.
