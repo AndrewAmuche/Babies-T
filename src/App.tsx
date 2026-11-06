@@ -21,7 +21,8 @@ import { Toast } from './components/Toast';
 import { FlyToCartAnimation, FlyItemData } from './components/FlyToCartAnimation';
 import { CategoriesMegaMenu } from './components/CategoriesMegaMenu';
 import { CuratedShowcase } from './components/CuratedShowcase';
-import { FashionProductShowcase } from './components/FashionProductShowcase';
+import { RunwayDepthLookbook } from './components/RunwayDepthLookbook';
+import { TryTheLookRunway } from './components/TryTheLookRunway';
 import { BabiesTouchLogo } from './components/BabiesTouchLogo';
 import { adminStorage } from './services/adminStorage';
 
@@ -270,7 +271,7 @@ export default function App() {
             onAddToCart={handleAddToCart}
             onSelectProduct={(p) => setSelectedProduct(p)}
             onExploreClick={() => {
-              const el = document.getElementById('fashion-showcase-section') || document.getElementById('catalog-section');
+              const el = document.getElementById('runway-depth-section') || document.getElementById('catalog-section');
               el?.scrollIntoView({ behavior: 'smooth' });
             }}
           />
@@ -287,14 +288,14 @@ export default function App() {
             onClearSearch={() => setSearchQuery('')}
           />
 
-          {/* CENTER OF PAGE: "Wear Confidence" Premium Showcase Section */}
+          {/* CENTER OF PAGE: Runway Depth Lookbook Section */}
           <section
-            id="fashion-showcase-section"
-            className="w-full overflow-hidden bg-black my-6 sm:my-10 border-y border-[#E6E4DF]/60 shadow-lg"
+            id="runway-depth-section"
+            className="w-full overflow-hidden my-6 sm:my-10 border-y border-[#E6E4DF] shadow-md bg-white"
           >
-            <FashionProductShowcase
-              onSelectProduct={(p) => setSelectedProduct(p)}
+            <RunwayDepthLookbook
               onAddToCart={handleAddToCart}
+              onSelectProduct={(p) => setSelectedProduct(p)}
               onExploreClick={() => {
                 const el = document.getElementById('catalog-section');
                 el?.scrollIntoView({ behavior: 'smooth' });
@@ -308,6 +309,11 @@ export default function App() {
             onSelectProduct={(p) => setSelectedProduct(p)}
             onAddToCart={handleAddToCart}
           />
+
+          {/* Try the Look. — Runway Section (Before Footer) */}
+          <section id="try-the-look-runway" className="w-full overflow-hidden my-8 sm:my-12 border-y border-[#c8c8c8]">
+            <TryTheLookRunway />
+          </section>
 
           {/* Quiet Newsletter & Footer */}
           <footer className="border-t border-[#E6E4DF] bg-[#F4F3EF] mt-6">
